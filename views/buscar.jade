@@ -1,0 +1,26 @@
+extends layout
+block content
+  if status != 'ninguno'
+    if res
+      .genero
+        h3 RESULTADOS PARA #{word}
+      .grilla        
+        each rec in res
+          .content-scroll
+            a(href="/pelicula/#{rec.id}")
+              .content-img
+                img(src= rec.medium_cover_image, alt= rec.title)
+                |             
+                .descripcion
+                  p= rec.title_long.length < 23 ? rec.title_long : rec.title_long.substring(0,19)+'...'
+                  |                 
+                  p= rec.year
+                  |                 
+                  p= rec.rating
+                  |                 
+                  p= rec.genres[0]
+                  |                 
+                  p= rec.genres[1]
+  else
+    .genero
+        h3 NO SE ENCONTRARON RESULTADOS PARA #{word}

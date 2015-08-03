@@ -1,0 +1,92 @@
+extends layout
+block content
+    .contenedor
+      h1
+        a(href="http://www.imdb.com/title/#{res.imdb_code}" target="_blank")= res.title_long
+      |   
+      .row-fluid.desc
+        .span3
+          .content-img
+            img(src="#{res.images.medium_cover_image}", alt="#{res.title_long}")
+          |         
+          a.btn.btn-inverse(class="addlist" id="#{res.id}") AGREGAR A MI LISTA
+        |     
+        .span9
+          .infotitulo
+            .center
+              iframe(width='70%', height='315px', src="//www.youtube.com/embed/#{res.yt_trailer_code}", frameborder='0', allowfullscreen='')
+            |         
+            .puntaje
+              span= res.rating
+              |           
+              a.btn.btn-inverse(href="http://www.imdb.com/title/#{res.imdb_code}" target="_blank") PUNTUAR
+            |         
+            .sinopsis
+              p
+                | SINOPSIS: #{res.description_full}
+            |         
+            .direccion
+              p
+                | DIRECCION:
+                each dir in res.directors 
+                  a(href="#{dir.medium_image}" target="_blank") - #{dir.name}
+            |         
+            .reparto
+              p
+                | REPARTO: 
+                each cast in res.actors
+                  a(href="#{cast.medium_image}" target="_blank") - #{cast.name}
+            |         
+            .gen
+              p GENERO: #{res.genres[0]}, #{res.genres[1]}
+            |         
+            .duracion
+              p DURACION: #{res.runtime} Min
+          |       
+          .descarga
+            .innerdescarga
+              each torrent in res.torrents
+                h3 Calidad: #{torrent.quality}
+                table
+                  tr
+                    td
+                      | TORRENT
+                    |               
+                    td
+                      a.btn.btn-inverse(href="#{torrent.url}") DESCARGA
+                  |             
+                  tr
+                    td
+                      | MAGNET
+                    |               
+                    td
+                      a.btn.btn-inverse(href="magnet:?xt=urn:btih:#{torrent.hash}") DESCARGA
+                  |             
+                  tr
+                    td
+                      | HASH
+                    |               
+                    td
+                      | #{torrent.hash}
+                  |             
+                  tr
+                    td
+                      | SUBTITULOS
+                    |               
+                    td
+                      a.btn.btn-inverse(href="http://www.yifysubtitles.com/movie-imdb/#{res.imdb_code}" target="_blank") DESCARGA
+                  |             
+                  tr
+                    td
+                      | SEEDS
+                    |               
+                    td
+                      | #{torrent.seeds}
+                  |             
+                  tr
+                    td
+                      | TAMA&Ntilde;O
+                    |               
+                    td
+                      | #{torrent.size}
+                  |             

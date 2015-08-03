@@ -1,0 +1,23 @@
+extends layout
+block content
+        .genero
+          h3= gen.nombre
+        .grilla
+          each rec in gen
+            .content-scroll
+              a(href="/pelicula/#{rec.id}")
+                .content-img
+                  img(src= rec.medium_cover_image, alt= rec.title_long)
+                  |             
+                  .descripcion
+                    p= rec.title.length < 23 ? rec.title : rec.title.substring(0,19)+'...'
+                    |                 
+                    p= rec.year
+                    |                 
+                    p= rec.rating
+                    |                 
+                    p= rec.genres[0]
+                    p= rec.genres[1]                 
+        a(class="navigation" href="?pag=#{gen.pagsig}") 
+          next
+  

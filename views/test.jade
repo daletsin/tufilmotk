@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    | &#x9;
+    title Document
+  body
+    each s in res
+        each r in s
+            h1= r.MovieTitle
+            | &#x9;
+            img(src="#{r.CoverImage}", alt="#{r.MovieTitle}")
+            | &#x9;
+            div= r.TorrentMagnetUrl

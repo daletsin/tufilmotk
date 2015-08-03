@@ -1,0 +1,22 @@
+.genero
+  h3= gen.nombre
+.grilla
+  each rec in gen
+    .content-scroll
+      a(href="/pelicula/#{rec.MovieID}")
+        .content-img
+          img(src= rec.CoverImage, alt= rec.MovieTitle)
+          |             
+          .descripcion
+            p= rec.MovieTitleClean.length < 23 ? rec.MovieTitleClean : rec.MovieTitleClean.substring(0,19)+'...'
+            |                 
+            p= rec.MovieYear
+            |                 
+            p= rec.MovieRating
+            |                 
+            p= rec.Genre
+            |                 
+            p= rec.Quality
+if last == false
+  .more(onclick="filter(#{idnumber})")
+    i(class="fa fa-arrow-circle-down fa-4x")
