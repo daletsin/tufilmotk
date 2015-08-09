@@ -9,7 +9,7 @@ block content
           .content-img
             img(src="#{res.images.medium_cover_image}", alt="#{res.title_long}")
           |         
-          a.btn.btn-inverse(class="addlist" id="#{res.id}") AGREGAR A MI LISTA
+          a.btn.btn-inverse(class="list-add" onclick="addRemove(this)" id="list-add-#{res.id}")
         |     
         .span9
           .infotitulo

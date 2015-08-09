@@ -6,21 +6,21 @@ block content
         h3 RESULTADOS PARA #{word}
       .grilla        
         each rec in res
-          .content-scroll
-            a(href="/pelicula/#{rec.id}")
+          .content-scroll              
               .content-img
-                img(src= rec.medium_cover_image, alt= rec.title)
+                img(src= rec.medium_cover_image, alt= rec.title_long)
                 |             
                 .descripcion
-                  p= rec.title_long.length < 23 ? rec.title_long : rec.title_long.substring(0,19)+'...'
+                  h4= rec.title.length < 23 ? rec.title : rec.title.substring(0,30)+'...'
                   |                 
-                  p= rec.year
-                  |                 
-                  p= rec.rating
-                  |                 
-                  p= rec.genres[0]
-                  |                 
-                  p= rec.genres[1]
+                  p(class='year_score') #{rec.year} #[span(class='mpa_rating') #{rec.mpa_rating}] #[span(class='descpuntaje') #{rec.rating}]
+                  a(href="/pelicula/#{rec.id}" class="info")
+                    i(class="fa fa-arrow-circle-down fa-4x moreinfo")
+                  if rec.genres[1]
+                    p(class='generos') #{rec.genres[0]}/#{rec.genres[1]}
+                  else                  
+                    p(class='generos') #{rec.genres[0]} 
+                  p(id="list-add-#{rec.id}" class="list-add" onclick="addRemove(this)")
   else
     .genero
         h3 NO SE ENCONTRARON RESULTADOS PARA #{word}

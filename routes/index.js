@@ -180,16 +180,4 @@ router.post('/buscar', function(req, res) {
 		  res.render('buscar', { res: result.body.data.movies, bg:imgbg, status: estado, titulo: 'TUFILMOTECA | Buscar: '+palabra, descripcion: 'Descarga de peliculas torrent', word:palabra });
 	});
 });
-
-
-/*
-router.get('/test', function(req, res) {
-	unirest.get("https://yifytorrents.p.mashape.com/list.json?genre=ALL&limit=50&order=desc&quality=ALL&rating=0&set=1&sort=like_count")
-		.header("X-Mashape-Key", conf.mashape_key)
-		.end(function (result) {			
-		  res.render('test', { res: result.body});
-	});
-});
-
-*/
 module.exports = router;
