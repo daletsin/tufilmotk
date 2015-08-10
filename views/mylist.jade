@@ -1,0 +1,30 @@
+extends layout
+block content
+	.genero
+		h3 Mi Lista
+	.grilla
+	script.
+		var checkLocalStorage = function(){
+		  if('localStorage' in window && window['localStorage'] !== null) {
+		    return true;
+		  } else { 
+		    return false;
+		  }
+		}
+		$(document).ready(function(){
+			if(checkLocalStorage()){
+				var movies = localStorage.getItem('moviestufilmoteca');
+				var moviesArray = movies.split(',');
+				if(movies && movies !== ''){
+					moviesArray.forEach(function(element, index, array){
+						$.get('/list',{element: element}).done(function(data){
+							$('.grilla').append(data);
+						});
+					})
+				}else{
+					$('.grilla').html('<div class="genero"><h3>No hay titulos agregados a tu lista</h3></div>');
+				}
+			}else{
+				$('.grilla').html('<div class="genero"><h3>Tu navegador no soporta esta característica, prueba con <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a> o <a href="https://www.google.es/chrome/browser/desktop/index.html">Chrome</a></h3></div>');
+			}
+		})

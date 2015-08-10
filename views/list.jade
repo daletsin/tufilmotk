@@ -1,0 +1,15 @@
+.content-scroll(class = "list-added-#{rec.id}")              
+  .content-img
+    img(src= rec.images.medium_cover_image, alt= rec.title_long)
+    |             
+    .descripcion
+      h4= rec.title.length < 23 ? rec.title : rec.title.substring(0,30)+'...'
+      |                 
+      p(class='year_score') #{rec.year} #[span(class='mpa_rating') #{rec.mpa_rating}] #[span(class='descpuntaje') #{rec.rating}]
+      a(href="/pelicula/#{rec.id}" class="info")
+        i(class="fa fa-arrow-circle-down fa-4x moreinfo")
+      if rec.genres[1]
+        p(class='generos') #{rec.genres[0]}/#{rec.genres[1]}
+      else                  
+        p(class='generos') #{rec.genres[0]} 
+      p(id="list-add-#{rec.id}" class="list-add list-added" onclick="addRemove(this)")

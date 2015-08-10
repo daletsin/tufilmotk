@@ -6,7 +6,7 @@ var unirest = require('unirest');
 
 
 
-router.obtenerdatos = function(genre, genero, sort, set, callback){
+router.getMovieData = function(genre, genero, sort, set, callback){
 		var generos = {};
 		var url = "https://yts.to/api/v2/list_movies.json?genre="+genre+"&limit=50&order_by=desc&quality=ALL&page="+set+"&sort_by="+sort;
 		unirest.get(url)
@@ -27,9 +27,13 @@ router.get('/', function(req, res) {
 	}else{
 		var pagi = 1
 	}
-	router.obtenerdatos('ALL', 'POPULARES', 'like_count', pagi, function(generos){
-		var imgbg = generos[0].medium_cover_image;
-		res.render('index', { active: 'peliculas', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | peliculas torrent hd, full hd, 3d', descripcion: 'Descarga de peliculas torrent' });
+	router.getMovieData('ALL', 'POPULARES', 'like_count', pagi, function(generos){
+		if (generos[0]) {
+			var imgbg = generos[0].medium_cover_image;
+			res.render('index', { active: 'peliculas', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | peliculas torrent hd, full hd, 3d', descripcion: 'Descarga de peliculas torrent' });			
+		}else{
+			res.render('notfound', {message: '', bg: '/img/poster_large.jpg'});
+		}
 	});
 });
 
@@ -50,7 +54,7 @@ router.get('/filter/:id', function(req, res) {
 		},
 		{
 			genre:'ALL',
-			genero:'RECIEN SUBIDAS',
+			genero:'RECIENTEMENTE AGREGADAS',
 			sort: 'date_added'
 		},
 		{
@@ -149,18 +153,25 @@ router.get('/filter/:id', function(req, res) {
 			sort: 'like_count'
 		}
 	];
-	router.obtenerdatos(filtros[id].genre, filtros[id].genero, filtros[id].sort, pagi, function(generos){
-		var imgbg = generos[0].medium_cover_image;
-		res.render('index', { active: 'filtro', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | '+filtros[id].genero, descripcion: 'Descarga de peliculas torrent' });
+	router.getMovieData(filtros[id].genre, filtros[id].genero, filtros[id].sort, pagi, function(generos){
+		if (generos[0]) {
+			var imgbg = generos[0].medium_cover_image;			
+			res.render('index', { active: 'filtro', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | '+filtros[id].genero, descripcion: 'Descarga de peliculas torrent' });
+		}else{
+			res.render('notfound', {message: '', bg: '/img/poster_large.jpg'});
+		}
 	});
 });
 
 router.get('/pelicula/:id', function(req, res) {
 	unirest.get("https://yts.to/api/v2/movie_details.json?movie_id="+req.params.id+"&with_images=true&with_cast=true")
 		.end(function (result) {
-		console.log(result.body.data);
-		  var imgbg = result.body.data.images.background_image;
-		  res.render('pelicula', { res: result.body.data, bg: imgbg, titulo: result.body.data.title, descripcion: result.body.data.description_intro });
+			if (result.body.data) {
+		  		var imgbg = result.body.data.images.background_image;
+		  		res.render('pelicula', { res: result.body.data, bg: imgbg, titulo: result.body.data.title, descripcion: result.body.data.description_intro });
+			}else{
+				res.render('notfound', {message: 'Título no encontrado', bg: '/img/poster_large.jpg'});
+			}
 	});
 });
 
@@ -178,6 +189,20 @@ router.post('/buscar', function(req, res) {
 				estado = 'ninguno'
 			}
 		  res.render('buscar', { res: result.body.data.movies, bg:imgbg, status: estado, titulo: 'TUFILMOTECA | Buscar: '+palabra, descripcion: 'Descarga de peliculas torrent', word:palabra });
+	});
+});
+
+router.get('/mylist', function(req, res) {
+	res.render('mylist', {bg: '/img/poster_large.jpg', active: 'mylist'});
+});
+
+router.get('/list', function(req, res) {
+	var element = req.param('element');
+	unirest.get("https://yts.to/api/v2/movie_details.json?movie_id="+element+"&with_images=true")
+		.end(function (result) {
+			if (result.body.data) {
+		  		res.render('list', {rec: result.body.data});
+			}
 	});
 });
 module.exports = router;

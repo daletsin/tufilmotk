@@ -18,23 +18,13 @@ $('.grilla').infinitescroll({
 
 
 $(document).ready(function(){
-  checkadded()
+  checkLocalStorage();
+  checkadded();
 });
 $(document).ajaxComplete(function(){
-  checkadded()
+  checkadded();
 });
 
-
-/*
-var agregarlista = function(id, ob){
-  	var item = localStorage.getItem('k'+id);
-  	if (!item) {
-  		localStorage.setItem('k'+id, ob);
-  	};
-
-  	console.log(item[0]);
-  }
-*/
 var filter = function(id, last){
   $.get('/filter/'+id, function(data){
     $('.more').remove();
@@ -68,6 +58,9 @@ var addRemove = function(el){
   var idmovie = $(el).attr('id').replace('list-add-','');
   if ($(el).hasClass('removeto-list')) {
     removeToList(idmovie);
+    if ($(el).hasClass('list-added')) {
+      $('.list-added-'+idmovie).remove();
+    };
   }else if($(el).hasClass('addto-list')){
     addToList(idmovie);
   }
@@ -106,7 +99,8 @@ var addToList = function(idmovie){
 var checkLocalStorage = function(){
   if('localStorage' in window && window['localStorage'] !== null) {
     return true;
-  } else { 
+  } else {
+    $('li.mylist').remove(); 
     return false;
   }
 }

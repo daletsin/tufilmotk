@@ -92,7 +92,7 @@ html(lang='en')
                     li 
                         a(href="/filter/0") MEJOR PUNTUADAS
                     li 
-                        a(href="/filter/1") RECIEN SUBIDAS
+                        a(href="/filter/1") RECIENTEMENTE AGREGADAS
                     li 
                         a(href="/filter/2") ESTE AÑO
                     li 
@@ -132,8 +132,8 @@ html(lang='en')
                     li 
                         a(href="/filter/20") WESTERN
               |                                 
-              //li(class = active === "historial" ? "active" : "")
-                a(href='index.html') HISTORIAL
+              li(class = active === "mylist" ? "active mylist" : "mylist")
+                a(href='/mylist') MI LISTA
       |                 
       .search
         form(action='/buscar', method='post')
