@@ -355,7 +355,11 @@ ul.filtro li{
 	margin-top: 15px;
 }
 
-.list-add{
+.grilla a{
+  color: #fff;
+}
+
+.list-add, .grilla .generos a{
 	cursor: pointer;
 	color: #fff;
 	-webkit-transition: color 0.2s ease-in-out, -webkit-text-shadow 0.2s;
@@ -365,7 +369,7 @@ ul.filtro li{
    transition: color 0.2s ease-in-out, text-shadow 0.2s;	
 }
 
-.list-add:hover{
+.list-add:hover, .grilla .generos a:hover{
 	-webkit-text-shadow: 0 0 2px;
 	-moz-text-shadow: 0 0 2px;
 	-o-text-shadow: 0 0 2px;
@@ -376,4 +380,20 @@ ul.filtro li{
 .contenedor .list-add{
 	margin-top: 10px;
 	margin-left: 20px;
+}
+
+.help{
+  font-family: arial;
+  background-color: rgba(30,30,30,.6);
+  padding: 20px;
+  color: #FFD;
+}
+
+.help .genero h4{
+  background-color: rgba(80,80,80,.6);
+  color:#fff;
+  display: inline-table;
+  padding: 10px;
+  margin-left: 20px;
+  margin-bottom: 30px;
 }

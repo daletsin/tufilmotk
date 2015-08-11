@@ -14,12 +14,18 @@ block content
                   h4= rec.title.length < 23 ? rec.title : rec.title.substring(0,30)+'...'
                   |                 
                   p(class='year_score') #{rec.year} #[span(class='mpa_rating') #{rec.mpa_rating}] #[span(class='descpuntaje') #{rec.rating}]
-                  a(href="/pelicula/#{rec.id}" class="info")
+                  a(href="/pelicula/#{rec.id}/#{rec.slug}" class="info")
                     i(class="fa fa-arrow-circle-down fa-4x moreinfo")
                   if rec.genres[1]
-                    p(class='generos') #{rec.genres[0]}/#{rec.genres[1]}
-                  else                  
-                    p(class='generos') #{rec.genres[0]} 
+                    if genres[rec.genres[0].toLowerCase()]
+                      p(class='generos') #[a(href="/filter/"+rec.genres[0].toLowerCase()) #{genres[rec.genres[0].toLowerCase()].genero.toLowerCase()}]/#[a(href="/filter/"+rec.genres[1].toLowerCase()) #{genres[rec.genres[1].toLowerCase()].genero.toLowerCase()}]
+                    else
+                      p(class='generos') #[a(href="/filter/"+rec.genres[0].toLowerCase()) #{rec.genres[0].toLowerCase()}]/#[a(href="/filter/"+rec.genres[1].toLowerCase()) #{rec.genres[1].toLowerCase()}]
+                  else 
+                    if genres[rec.genres[0].toLowerCase()]                 
+                      p(class='generos') #[a(href="/filter/"+rec.genres[0].toLowerCase()) #{genres[rec.genres[0].toLowerCase()].genero.toLowerCase()}]
+                    else
+                      p(class='generos') #[a(href="/filter/"+rec.genres[0].toLowerCase()) #{rec.genres[0].toLowerCase()}] 
                   p(id="list-add-#{rec.id}" class="list-add" onclick="addRemove(this)")
   else
     .genero

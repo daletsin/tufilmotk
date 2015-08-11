@@ -90,50 +90,54 @@ html(lang='en')
                     b(class="caret")
                 ul(class="dropdown-menu filtro" role="menu" aria-labelledby="dLabel")
                     li 
-                        a(href="/filter/0") MEJOR PUNTUADAS
+                        a(href="/filter/rating") MEJOR PUNTUADAS
                     li 
-                        a(href="/filter/1") RECIENTEMENTE AGREGADAS
+                        a(href="/filter/dateadded") RECIENTEMENTE AGREGADAS
                     li 
-                        a(href="/filter/2") ESTE AÑO
+                        a(href="/filter/year") ESTE AÑO
                     li 
-                        a(href="/filter/3") TERROR
+                        a(href="/filter/horror") TERROR
                     li 
-                        a(href="/filter/4") CIENCIA FICCIÓN
+                        a(href="/filter/sci-fi") CIENCIA FICCIÓN
                     li 
-                        a(href="/filter/5") ACCIÓN
+                        a(href="/filter/action") ACCIÓN
                     li 
-                        a(href="/filter/6") ANIMACIÓN 
+                        a(href="/filter/animation") ANIMACIÓN 
                     li 
-                        a(href="/filter/7") AVENTURA
+                        a(href="/filter/adventure") AVENTURA
                     li 
-                        a(href="/filter/8") SUSPENSO
+                        a(href="/filter/mystery") SUSPENSO
                     li 
-                        a(href="/filter/9") DOCUMENTAL
+                        a(href="/filter/documentary") DOCUMENTAL
                     li 
-                        a(href="/filter/10") DRAMA
+                        a(href="/filter/drama") DRAMA
                     li 
-                        a(href="/filter/11") BIOGRÁFICA
+                        a(href="/filter/biography") BIOGRÁFICA
                     li 
-                        a(href="/filter/12") BÉLICA
+                        a(href="/filter/war") BÉLICA
                     li 
-                        a(href="/filter/13") FANTASÍA
+                        a(href="/filter/fantasy") FANTASÍA
                     li 
-                        a(href="/filter/14") MUSICAL
+                        a(href="/filter/musical") MUSICAL
                     li 
-                        a(href="/filter/15") REAL
+                        a(href="/filter/history") REAL
                     li 
-                        a(href="/filter/16") FAMILIAR
+                        a(href="/filter/family") FAMILIAR
                     li 
-                        a(href="/filter/17") DEPORTE
+                        a(href="/filter/sport") DEPORTE
                     li 
-                        a(href="/filter/18") THRILLER
+                        a(href="/filter/thriller") THRILLER
                     li 
-                        a(href="/filter/19") ROMANCE
+                        a(href="/filter/romance") ROMANCE
                     li 
-                        a(href="/filter/20") WESTERN
+                        a(href="/filter/western") WESTERN
+                    li 
+                        a(href="/filter/comedy") COMEDIA
               |                                 
               li(class = active === "mylist" ? "active mylist" : "mylist")
                 a(href='/mylist') MI LISTA
+              li(class = active === "help" ? "active" : "")
+                a(href='/help') AYUDA
       |                 
       .search
         form(action='/buscar', method='post')
