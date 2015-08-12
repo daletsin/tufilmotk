@@ -181,7 +181,7 @@ router.get('/', function(req, res) {
 	router.getMovieList('ALL', 'POPULARES', 'like_count', pagi, '', function(generos){
 		if (generos[0]) {
 			var imgbg = generos[0].medium_cover_image;
-			res.render('index', { active: 'peliculas', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | peliculas torrent hd, full hd, 3d', descripcion: 'Descarga de peliculas torrent', genres: router.filtros });			
+			res.render('index', { active: 'peliculas', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | peliculas torrent hd, full hd, 3d', descripcion: 'Descarga películas en alta calidad (HD, FULL HD, 3D, torrent)', genres: router.filtros });			
 		}else{
 			res.render('notfound', {message: '', bg: '/img/poster_large.jpg'});
 		}
@@ -200,7 +200,7 @@ router.get('/imdbcode/:code/:name', function(req, res) {
 	router.getMovieList('ALL', name, 'like_count', pagi, code, function(generos){
 		if (generos[0]) {
 			var imgbg = generos[0].medium_cover_image;
-			res.render('index', { active: 'peliculas', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | peliculas torrent hd, full hd, 3d', descripcion: 'Descarga de peliculas torrent', genres: router.filtros });			
+			res.render('index', { active: 'peliculas', gen:generos, bg: imgbg, titulo: name+' | peliculas torrent hd, full hd, 3d', descripcion: name, genres: router.filtros });			
 		}else{
 			res.render('notfound', {message: '', bg: '/img/poster_large.jpg'});
 		}
@@ -219,7 +219,7 @@ router.get('/filter/:id', function(req, res) {
 	router.getMovieList(router.filtros[id].genre, router.filtros[id].genero, router.filtros[id].sort, pagi, '', function(generos){
 		if (generos[0]) {
 			var imgbg = generos[0].medium_cover_image;			
-			res.render('index', { active: 'filtro', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | '+router.filtros[id].genero, descripcion: 'Descarga de peliculas torrent', genres: router.filtros });
+			res.render('index', { active: 'filtro', gen:generos, bg: imgbg, titulo: 'TUFILMOTECA | '+router.filtros[id].genero, descripcion: router.filtros[id].genero+' | Descarga películas en alta calidad (HD, FULL HD, 3D, torrent)', genres: router.filtros });
 		}else{
 			res.render('notfound', {message: '', bg: '/img/poster_large.jpg'});
 		}
@@ -234,9 +234,12 @@ router.get('/pelicula/:id/:slug', function(req, res) {
 					.end(function (tmdbData){	
 						if (tmdbData.body) {
 							result.body.data.tmdb = tmdbData.body;
-						};					
+							var description = result.body.data.tmdb.overview;
+						}else{
+							var description = result.body.data.description_intro;
+						}					
 		  				var imgbg = result.body.data.images.background_image;
-		  				res.render('pelicula', { res: result.body.data, active: 'peliculas',bg: imgbg, titulo: result.body.data.title, descripcion: result.body.data.description_intro, genres: router.filtros });
+		  				res.render('pelicula', { res: result.body.data, active: 'peliculas',bg: imgbg, titulo: result.body.data.title, descripcion: description, genres: router.filtros });
 					});
 			}else{
 				res.render('notfound', {message: 'Título no encontrado', bg: '/img/poster_large.jpg'});
@@ -257,16 +260,16 @@ router.post('/buscar', function(req, res) {
 				var imgbg = '/img/poster_large.jpg';
 				estado = 'ninguno'
 			}
-		  res.render('buscar', { res: result.body.data.movies, bg:imgbg, status: estado, titulo: 'TUFILMOTECA | Buscar: '+palabra, descripcion: 'Descarga de peliculas torrent', word:palabra, genres: router.filtros });
+		  res.render('buscar', { res: result.body.data.movies, bg:imgbg, status: estado, titulo: 'TUFILMOTECA | Buscar: '+palabra, descripcion: 'Descarga películas en alta calidad (HD, FULL HD, 3D, torrent)', word:palabra, genres: router.filtros });
 	});
 });
 
 router.get('/help', function(req, res) {
-	res.render('help', {bg: '/img/poster_large.jpg', active: 'help'});
+	res.render('help', {bg: '/img/poster_large.jpg', active: 'help', titulo: 'Ayuda | TUFILMOTECA', descripcion: 'Descarga películas en alta calidad (HD, FULL HD, 3D, torrent)'});
 });
 
 router.get('/mylist', function(req, res) {
-	res.render('mylist', {bg: '/img/poster_large.jpg', active: 'mylist'});
+	res.render('mylist', {bg: '/img/poster_large.jpg', active: 'mylist', titulo: 'Mi Lista | TUFILMOTECA', descripcion: 'Descarga películas en alta calidad (HD, FULL HD, 3D, torrent)'});
 });
 
 router.get('/list', function(req, res) {
