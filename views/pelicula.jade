@@ -22,10 +22,7 @@ block content
               a.btn.btn-inverse(href="http://www.imdb.com/title/#{res.imdb_code}" target="_blank") PUNTUAR
             |         
             .sinopsis
-              if res.tmdb
-                p SINOPSIS: #{res.tmdb.overview}
-              else
-                p SINOPSIS: #{res.description_full}
+              p SINOPSIS: #{descripcion}
             |         
             .direccion
               p

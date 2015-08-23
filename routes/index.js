@@ -234,7 +234,11 @@ router.get('/pelicula/:id/:slug', function(req, res) {
 					.end(function (tmdbData){	
 						if (tmdbData.body) {
 							result.body.data.tmdb = tmdbData.body;
-							var description = result.body.data.tmdb.overview;
+							if (result.body.data.tmdb.overview != null) {
+								var description = result.body.data.tmdb.overview;
+							}else{
+								var description = result.body.data.description_intro;
+							}
 						}else{
 							var description = result.body.data.description_intro;
 						}					
