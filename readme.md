@@ -1,5 +1,5 @@
-Tufilmoteca.tk
-==============
+Tufilmoteca.tk (API fuera de linea)
+==================================
 
 PAGINA DE DESCARGA DE PELICULAS POR TORRENT- node js, yify api, tmdb api [Tufilmoteca.tk](http://tufilmoteca.tk).
 
